@@ -1,8 +1,8 @@
-# Title: Filename:
-# Author: Date:
-# Description:
-# Input:
-# Output:
+# Title: File content Counter Filename: COE301_202027420_202044280_Ass1.asm
+# Author: Muath Alsubhi & Abdullah Hujazi Date: 2/22/2023
+# Description:This program counts the number of words, letters, numbers and digits
+# Input: a file named data.txt
+# Output: count of words, letters, numbers, and digits
 ################# Data segment #####################
 .data
 fileName: .asciiz "data.txt" # here we are assuming that our file name is static as given per assignment
@@ -65,6 +65,7 @@ addiu $t0, $t0, 1 # increment letters
 addiu $t2, $t2, 1 # increment words
 # now we check again if it is an upper or lower:
 isLetter:
+bge $t4, 9999, printResults
 addiu $s3, $s3, 1 
 addiu $t4, $t4, 1 
 lb $t5, 0($s3)
@@ -86,6 +87,7 @@ isNumber:
 addiu $t1, $t1, 1 # increment digits # 
 addiu $t3, $t3, 1 # increment numbers
 isDigit:
+bge $t4, 10000, printResults
 addiu $s3, $s3, 1 # increment our byte and check if it is also a digit or not
 addiu $t4, $t4, 1
 lb $t5, 0($s3)
