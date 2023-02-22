@@ -1,0 +1,9 @@
+This is a sample data.txt file that contains letters, digits 123, and other characters.
+
+MIPS32 contains MIPS and 32.
+A12345B67890 has: A, 12345, B, 67890.
+
+Letters = 118
+Digits  = 36
+Words   = 27
+Numbers = 11
