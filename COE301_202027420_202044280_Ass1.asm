@@ -1,5 +1,5 @@
 # Title: File content Counter Filename: COE301_202027420_202044280_Ass1.asm
-# Author: Muath Alsubhi & Abdullah Hujazi Date: 2/22/2023
+# Author: Muath Alsubhi & Abdullah Hejazi Date: 2/22/2023
 # Description:This program counts the number of words, letters, numbers and digits
 # Input: a file named data.txt
 # Output: count of words, letters, numbers, and digits
@@ -39,10 +39,11 @@ bltz $s1, error # cannot read it
 beqz $s1, printResults # empty file
 la $s3, fileContent # this holds our file contents
 # now we use $t5 for our byte holder when we read
-li $t4, 0 # this is to stop after 10000 characters
+li $t4, 1 # this is to stop after 10000 characters
 readFileContents: 
 bge $t4, 10000, printResults
 lb $t5, 0($s3)
+loopBack:
 # lets check if it is a letter
 ## time to check for the codition 
 blt $t5, 65, checkDigit # ignoring special characters
@@ -65,18 +66,18 @@ addiu $t0, $t0, 1 # increment letters
 addiu $t2, $t2, 1 # increment words
 # now we check again if it is an upper or lower:
 isLetter:
-bge $t4, 9999, printResults
-addiu $s3, $s3, 1 
-addiu $t4, $t4, 1 
-lb $t5, 0($s3)
+bge $t4, 10000, printResults
+addiu $s3, $s3, 1 # increment contents array
+addiu $t4, $t4, 1 # increment our count variable
+lb $t5, 0($s3) # new byte
 blt $t5, 65, checkDigit # ignoring special characters # BUG: this is not working for some reason?
 bgt $t5, 90, checkLower1 # ignoring special characters
 # both false means it is an upper char Hence a letter
 addiu $t0, $t0, 1 # add a letter
 j isLetter 
-checkLower1: 
-blt $t5, 97, readFileContents
-bgt $t5 , 122, readFileContents
+checkLower1: # each time passes through here.
+blt $t5, 97, loopBack#readFileContents
+bgt $t5 , 122, loopBack#readFileContents
 addiu $t0, $t0, 1
 j isLetter
 # false means its a lower case char
@@ -91,8 +92,8 @@ bge $t4, 10000, printResults
 addiu $s3, $s3, 1 # increment our byte and check if it is also a digit or not
 addiu $t4, $t4, 1
 lb $t5, 0($s3)
-blt $t5, 48, readFileContents
-bgt $t5, 57, readFileContents
+blt $t5, 48, loopBack
+bgt $t5, 57, loopBack
 # both false means it is a digit otherwise we go back to check it in the main loop
 addiu $t1, $t1, 1
 j isDigit
@@ -100,7 +101,7 @@ j isDigit
 
 skip:
 addiu $s3, $s3, 1
-addiu $t4, $t4, 1
+addiu $t4, $t4, 1 
 j readFileContents 
 outLoop:
 printResults: 
