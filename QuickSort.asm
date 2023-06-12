@@ -1,4 +1,4 @@
-# Title: File content Counter Filename: COE301_202027420_202044280_Ass1.asm
+# Title: File content Counter Filename: QuickSort.asm
 # Author: Muath Alsubhi & Abdullah Hejazi Date: 2/22/2023
 # Description:This program counts the number of words, letters, numbers and digits
 # Input: a file named data.txt
